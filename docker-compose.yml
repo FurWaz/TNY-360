@@ -1,0 +1,6 @@
+name: tny360-website
+services:
+  web:
+    build: .
+    ports:
+      - 2090:3000
