@@ -2,7 +2,7 @@
     <div>
         <NuxtRouteAnnouncer />
     </div>
-    <div class="flex min-w-screen min-h-screen bg-zinc-100 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-100">
+    <div class="flex min-w-screen min-h-screen bg-slate-50 dark:bg-slate-700 text-slate-700 dark:text-slate-50">
         <NuxtPage />
     </div>
 </template>
