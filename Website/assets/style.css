@@ -6,7 +6,15 @@
 }
 
 .font-main {
-    font-family: 'main';
+    font-family: 'main', sans-serif;
+}
+
+.z-minus {
+    z-index: -1;
+}
+
+.card {
+    @apply space-y-4 bg-slate-100 dark:bg-slate-700 rounded-lg border-2 border-slate-400 dark:border-slate-600 shadow-lg
 }
 
 * {
@@ -16,16 +24,21 @@
 }
 
 h1 {
-    font-size: 2.5rem;
-    font-weight: 700;
+    @apply text-4xl
 }
 
 h2 {
-    font-size: 2rem;
-    font-weight: 600;
+    @apply text-3xl
 }
 
 h3 {
-    font-size: 1.5rem;
-    font-weight: 500;
+    @apply text-2xl
+}
+
+p {
+    @apply text-base font-light
+}
+
+body {
+    @apply bg-slate-50 dark:bg-slate-800 text-slate-700 dark:text-slate-50
 }
