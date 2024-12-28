@@ -92,7 +92,7 @@
                             <p> {{ $t(`home.learn.${platform}.description`) }} </p>
                         </div>
                         <div class="flex grow items-end justify-center pb-4">
-                            <UButton to="/docs" variant="solid" size="md">
+                            <UButton to="/docs/" variant="solid" size="md">
                                 {{ $t(`home.learn.${platform}.button`) }}
                             </UButton>
                         </div>
@@ -117,7 +117,7 @@
                     <h3> {{ $t('home.build.scratch.title') }} </h3>
                     <p class="flex grow"> {{ $t('home.build.scratch.description') }} </p>
                     <div class="flex w-full justify-start">
-                        <UButton class="w-fit" to="/docs" variant="solid" size="md" trailing icon="i-heroicons-chevron-right">
+                        <UButton class="w-fit" to="/docs/" variant="solid" size="md" trailing icon="i-heroicons-chevron-right">
                             {{ $t('home.build.scratch.button') }}
                         </UButton>
                     </div>
@@ -128,7 +128,6 @@
 </template>
 
 <script setup lang="ts">
-const route = useRoute();
 const { t } = useI18n();
 
 useSeoMeta({

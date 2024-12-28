@@ -1,0 +1,68 @@
+site_name: TNY - 360 Documentation
+docs_dir: src
+theme:
+  language: fr
+  name: material
+  logo: assets/icon.png
+  palette:
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: amber
+      accent: amber
+      toggle:
+        icon: material/brightness-7 
+        name: Switch to dark mode
+      
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: amber
+      accent: amber
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  locale: fr
+  features:
+    - content.code.select
+    - content.code.copy
+    - content.code.annotate
+
+extra_css:
+  - stylesheets/extra.css
+
+nav:
+  - Accueil: index.md
+  - Models:
+    - 'Model 1': models/model1/
+    - 'Model 2': models/model2/
+
+plugins: 
+  - search
+  - glightbox
+  - build_plantuml:
+      render: 'server' 
+      server: 'http://www.plantuml.com/plantuml' 
+      output_format: 'svg'
+      output_folder: 'out'
+      input_folder: 'src'
+      diagram_root: 'docs/diagrams'
+
+markdown_extensions: 
+  - attr_list
+  - md_in_html
+  - tables
+  - def_list
+  - admonition
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg

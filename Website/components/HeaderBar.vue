@@ -40,7 +40,7 @@ const buttons = [
     },
     {
         key: 'docs.name',
-        link: '/docs'
+        link: '/docs/'
     },
     {
         key: 'order.name',

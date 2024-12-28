@@ -1,6 +1,17 @@
-name: tny360-website
+name: tny360
 services:
   web:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+  
+  nginx:
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
     ports:
-      - 2090:3000
+      - 2090:80
+
+networks:
+  tny360:
+    driver: bridge
