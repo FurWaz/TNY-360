@@ -1,7 +1,7 @@
 export default {
     name: 'Home',
-    subtitle: 'A small quadruped spider robot, full of sensors',
-    description: 'A small quadruped spider robot, full of sensors and running with an esp32!',
+    subtitle: 'A small futuristic robot dog, full of sensors',
+    description: 'A small futuristic robot dog, full of sensors and running with an esp32!',
     title: 'TNY - 360',
     titlePhone: 'TNY 360',
     project: {

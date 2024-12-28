@@ -1,7 +1,7 @@
 export default {
     name: 'Accueil',
-    subtitle: 'Un petit robot-araignée quadrupède, rempli de capteurs !',
-    description: 'Un petit robot-araignée quadrupède, rempli de capteurs et fonctionnant avec un esp32 !',
+    subtitle: 'Un petit robot chien futuristique, rempli de capteurs !',
+    description: 'Un petit robot chien futuristique, rempli de capteurs et fonctionnant avec un esp32 !',
     title: 'TNY - 360',
     titlePhone: 'TNY 360',
     project: {
