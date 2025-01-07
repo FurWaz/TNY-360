@@ -3,7 +3,6 @@
         <NuxtRouteAnnouncer />
     </div>
     <div class="flex flex-col h-fit w-full min-w-screen min-h-screen">
-        <HeaderBar />
         <NuxtPage />
     </div>
 </template>

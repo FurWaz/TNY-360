@@ -1,6 +1,9 @@
 <template>
-    <div>
-        Redirecting to docs...
+    <div class="flex grow h-full w-full justify-center items-center">
+        <div class="h-fit w-fit space-y-8">
+            <img src="/icon.png" alt="icon" class="w-20 h-20 m-auto" />
+            <h2>Redirecting to docs...</h2>
+        </div>
     </div>
 </template>
 

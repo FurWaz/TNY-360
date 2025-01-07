@@ -1,5 +1,6 @@
 <template>
     <div class="h-fit min-h-full w-full">
+        <HeaderBar />
         <div class="flex flex-col space-y-2 justify-evenly items-center w-full h-screen">
             <div class="w-fit h-fit space-y-4">
                 <h1 class="hidden md:flex text-center text-4xl text-7xl font-main"> {{ $t('home.title') }} </h1>
@@ -83,17 +84,17 @@
 
             <div class="flex grow w-full justify-start overflow-auto">
                 <div class="flex px-2 mx-auto mb-2">
-                    <div v-for="platform in platforms" :key="platform"
+                    <div v-for="platform in platforms" :key="platform.type"
                         class="flex flex-col bg-slate-300 dark:bg-slate-800 rounded-lg p-4 text-center space-y-8 w-64 m-4 shadow-lg">
                         <h3>
-                            {{ $t(`home.learn.${platform}.title`) }}
+                            {{ $t(`home.learn.${platform.type}.title`) }}
                         </h3>
                         <div>
-                            <p> {{ $t(`home.learn.${platform}.description`) }} </p>
+                            <p> {{ $t(`home.learn.${platform.type}.description`) }} </p>
                         </div>
                         <div class="flex grow items-end justify-center pb-4">
-                            <UButton to="/docs/" variant="solid" size="md">
-                                {{ $t(`home.learn.${platform}.button`) }}
+                            <UButton :to="platform.link" variant="solid" size="md">
+                                {{ $t(`home.learn.${platform.type}.button`) }}
                             </UButton>
                         </div>
                     </div>
@@ -155,11 +156,11 @@ const actuators = [
 ];
 
 const platforms = [
-    'mobile',
-    'blocks',
-    'python',
-    'ros2',
-    'esp32'
+    {type: 'mobile', link: '/docs'},
+    {type: 'blocks', link: '/blocks'},
+    {type: 'python', link: '/docs'},
+    {type: 'ros2', link: '/docs'},
+    {type: 'esp32', link: '/docs'}
 ];
 
 </script>

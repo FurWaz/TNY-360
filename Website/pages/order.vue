@@ -1,5 +1,6 @@
 <template>
     <div class="h-fit min-h-full w-full">
+        <HeaderBar />
         Page en construction
     </div>
 </template>
