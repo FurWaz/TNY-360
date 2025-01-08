@@ -2,7 +2,7 @@
     <div class="h-fit min-h-full w-full">
         <HeaderBar />
         <div class="flex flex-col space-y-2 justify-evenly items-center w-full h-screen">
-            <div class="w-fit h-fit space-y-4">
+            <div class="w-fit h-fit space-y-4 px-4">
                 <h1 class="hidden md:flex text-center text-4xl text-7xl font-main"> {{ $t('home.title') }} </h1>
                 <h1 class="text-center text-7xl md:hidden font-main"> {{ $t('home.titlePhone') }} </h1>
                 <p class="text-center text-lg md:text-xl"> {{ $t('home.subtitle') }} </p>

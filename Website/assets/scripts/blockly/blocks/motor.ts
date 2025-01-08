@@ -87,7 +87,7 @@ function getCustomBlocks() {
             js: function (block: Blockly.Block, generator: JavascriptGenerator) {
                 var id = javascriptGenerator.valueToCode(block, 'id', Order.NONE);
                 // return `TnyRemote.getInstance().getMotorRotation(${id});\n`;
-                return [`await window.TnyRemote.getMotorRotation(${id});\n`, Order.NONE]
+                return [`await window.TnyRemote.getMotorRotation(${id})`, Order.NONE]
             }
         }
     ];

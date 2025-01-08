@@ -9,6 +9,18 @@
             <UButton v-show="!running" @click="onPlayPressed" size="lg" class="shadow-lg" icon="i-heroicons-play" />
         </div>
     </div>
+    <UModal v-model="disconnectedPopup" @close="disconnectedPopup = false">
+        <div class="p-6 space-y-4">
+            <h2 class="text-2xl font-semibold"> {{ $t('blocks.disconnectedPopup.title') }} </h2>
+            <p> {{ $t('blocks.disconnectedPopup.message') }} </p>
+            <span class="w-full h-1 rounded-full bg-slate-600" />
+            <div class="flex w-full justify-end mt-4">
+                <UButton color="primary" size="lg" @click="disconnectedPopup = false">
+                    {{ $t('blocks.disconnectedPopup.button') }}
+                </UButton>
+            </div>
+        </div>
+    </UModal>
 </template>
 
 <script lang="ts" setup>
@@ -20,7 +32,7 @@ import Fr from '~/assets/scripts/blockly/fr';
 import { getCustomBlocks } from '~/assets/scripts/blockly/blocks';
 import { createTheme } from '~/assets/scripts/blockly/theme';
 import defaultToolbox from '~/assets/toolbox.json';
-import TnyRemote from  '~/assets/scripts/TnyRemote';
+import { TnyRemote, DisconnectedError } from '~/assets/scripts/TnyRemote';
 
 // get locale from nuxt
 const { locale } = useI18n();
@@ -202,6 +214,7 @@ async function initBlockly() {
         javascriptGenerator.addReservedWords('onBlockStart');
         javascriptGenerator.addReservedWords('onBlockEnd');
         const code = javascriptGenerator.workspaceToCode(workspace);
+        console.log(code);
         
         try { eval(code); }
         catch (e) { console.error('Error running code', e); }
@@ -297,15 +310,37 @@ async function onStepPressed() {
     runCode();
 }
 
+const disconnectedPopup = ref(false);
 async function runCode() {
+    const workspace = Blockly.getMainWorkspace() as Blockly.WorkspaceSvg;
+
+    function handleCodeError(e: any) {
+        if (e instanceof DisconnectedError) {
+            disconnectedPopup.value = true;
+        } else {
+            alert('Erreur lors de l\'execution du code :\n' + e);
+        }
+        workspace.highlightBlock(null);
+        onStopPressed();
+    }
+
     running.value = true;
-    await (window as any).blockly_setup?.();
+    try {
+        await (window as any).blockly_setup?.();
+    } catch (e) {
+        handleCodeError(e);
+        return;
+    }
 
     function loop() {
         if (running.value) {
-            (window as any).blockly_loop?.().then(() => {
-                setTimeout(loop, 10);
-            });
+            try {
+                (window as any).blockly_loop?.().then(() => {
+                    setTimeout(loop, 10);
+                });
+            } catch (e) {
+                handleCodeError(e);
+            }
         }
     }
     loop();
@@ -318,7 +353,7 @@ if (import.meta.client) {
         initBlockly();
         TnyRemote.getInstance();
     }).catch((error) => {
-        console.error(error);
+        console.error('Error loading blockly scripts', error);
     });
 }
 

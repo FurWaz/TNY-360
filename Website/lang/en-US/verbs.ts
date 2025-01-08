@@ -1,5 +1,6 @@
 export default {
     continue: 'Continue',
+    connect: 'Connect',
     cancel: 'Cancel',
     logout: 'Logout',
     back: 'Back',

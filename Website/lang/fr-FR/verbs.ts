@@ -1,5 +1,6 @@
 export default {
     continue: 'Continuer',
+    connect: 'Connecter',
     cancel: 'Annuler',
     logout: 'Déconnexion',
     back: 'Retour',

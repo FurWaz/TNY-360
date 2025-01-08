@@ -19,30 +19,108 @@
             </div>
         </div>
     </div>
+    <UModal v-model="connectPopup" title="Connect to device" @close="connectPopup = false">
+        <div class="flex flex-col justify-center p-4 space-y-8">
+            <div class="flex flex-col space-y-2">
+                <h2 class="text-2xl font-semibold"> {{ $t('blocks.connectionPopup.title') }} </h2>
+                <p> {{ $t('blocks.connectionPopup.message') }} </p>
+            </div>
+
+            <div class="flex space-x-2 mt-4 justify-center items-center">
+                <input id="ip_1" type="text" class="w-[4em] px-2 py-1 bg-slate-800 rounded-md text-lg text-center outline-primary focus:outline" @input="onIpChange" />
+                <p class="font-semibold text-xl">.</p>
+                <input id="ip_2" type="text" class="w-[4em] px-2 py-1 bg-slate-800 rounded-md text-lg text-center outline-primary focus:outline" @input="onIpChange" />
+                <p class="font-semibold text-xl">.</p>
+                <input id="ip_3" type="text" class="w-[4em] px-2 py-1 bg-slate-800 rounded-md text-lg text-center outline-primary focus:outline" @input="onIpChange" />
+                <p class="font-semibold text-xl">.</p>
+                <input id="ip_4" type="text" class="w-[4em] px-2 py-1 bg-slate-800 rounded-md text-lg text-center outline-primary focus:outline" @input="onIpChange" @keydown="checkForEnter" />
+            </div>
+
+            <div class="flex flex-col w-full h-fit">
+                <div class="flex w-full h-fit justify-start py-1">
+                    <div v-show="websocketStatus === TnyRemote.STATUS_CONNECTING" class="flex space-x-2 items-center text-yellow-500">
+                        <LoadingSpinner />
+                        <p> {{ $t('blocks.connectionPopup.connecting') }} </p>
+                    </div>
+                    <div v-show="websocketStatus === TnyRemote.STATUS_CONNECTED" class="flex space-x-2 items-center text-green-500">
+                        <UIcon name="i-heroicons-check" class="w-6 h-6" />
+                        <p>  {{ $t('blocks.connectionPopup.connected') }}  </p>
+                    </div>
+                    <div v-show="websocketStatus === TnyRemote.STATUS_DISCONNECTED" class="flex space-x-2 items-center text-red-500">
+                        <UIcon name="i-heroicons-x-circle" class="w-6 h-6" />
+                        <p>  {{ $t('blocks.connectionPopup.disconnected') }}  </p>
+                    </div>
+                    <div v-show="websocketStatus === TnyRemote.STATUS_ERROR" class="flex space-x-2 items-center text-orange-500">
+                        <UIcon name="i-heroicons-exclamation-triangle" class="w-6 h-6" />
+                        <p>  {{ $t('blocks.connectionPopup.error') }}  </p>
+                    </div>
+                </div>
+                <span class="w-full h-1 rounded-full bg-slate-600" />
+                <div class="flex w-full justify-between mt-4">
+                    <UButton color="gray" size="lg" @click="connectPopup = false"> {{ $t('verb.cancel') }} </UButton>
+                    <UButton color="primary" size="lg" @click="connectIp"> {{ $t('verb.connect') }} </UButton>
+                </div>
+            </div>
+        </div>
+    </UModal>
 </template>
 
 <script lang="ts" setup>
 import * as Blockly from 'blockly';
+import { TnyRemote } from '~/assets/scripts/TnyRemote';
+const { t } = useI18n();
 
+function onIpChange(ev: any) {
+    ev.target.value = ev.target.value.replace(/[^0-9]/g, '');
+    if (ev.data === '.') { // focus next input
+        const id = ev.target.id.split('_')[1];
+        if (id === '4') return;
+        const next = document.getElementById(`ip_${parseInt(id) + 1}`);
+        next?.focus();
+    }
+}
+
+function checkForEnter(ev: any) {
+    if (ev.key === 'Enter') {
+        connectIp();
+    }
+}
+
+const websocketStatus = ref(TnyRemote.getInstance().status);
+function connectIp() {
+    const ip1 = document.getElementById('ip_1') as HTMLInputElement;
+    const ip2 = document.getElementById('ip_2') as HTMLInputElement;
+    const ip3 = document.getElementById('ip_3') as HTMLInputElement;
+    const ip4 = document.getElementById('ip_4') as HTMLInputElement;
+    const ip = `${ip1.value}.${ip2.value}.${ip3.value}.${ip4.value}`;
+
+    const updateInterval = setInterval(() => {
+        websocketStatus.value = TnyRemote.getInstance().status;
+        if (websocketStatus.value === TnyRemote.STATUS_CONNECTED) {
+            clearInterval(updateInterval);
+        }
+    }, 100);
+
+    TnyRemote.getInstance().connect(ip).then((success) => {
+        clearInterval(updateInterval);
+        if (success) {
+            websocketStatus.value = TnyRemote.STATUS_CONNECTED;
+            setTimeout(() => { connectPopup.value = false; }, 2000);
+        } else {
+            websocketStatus.value = TnyRemote.STATUS_ERROR;
+        }
+    });
+}
+
+const connectPopup = ref(false);
 const buttons = [
     {
-        key: 'save',
-        icon: 'i-heroicons-arrow-down-tray',
+        key: 'new',
+        icon: 'i-heroicons-document-plus',
         callback: () => {
-            const workspace = Blockly.getMainWorkspace();
-            const content = Blockly.serialization.workspaces.save(workspace);
-            const blocks = content.blocks.blocks;
-            const json = JSON.stringify(blocks);
-            const blob = new Blob([json], {type: 'application/json'});
-            const url = URL.createObjectURL(blob);
-            const link = document.createElement('a') as HTMLAnchorElement;
-            link.style.display = 'none';
-            link.href = url;
-            link.download = 'My project.tnyblk';
-            document.body.appendChild(link);
-            link.click();
+            window.location.reload();
         },
-        label: 'Save'
+        label: t('blocks.new')
     },
     {
         key: 'load',
@@ -65,15 +143,35 @@ const buttons = [
             };
             select.click();
         },
-        label: 'Load'
+        label: t('blocks.load')
     },
     {
-        key: 'new',
-        icon: 'i-heroicons-document-plus',
+        key: 'save',
+        icon: 'i-heroicons-arrow-down-tray',
         callback: () => {
-            window.location.reload();
+            const workspace = Blockly.getMainWorkspace();
+            const content = Blockly.serialization.workspaces.save(workspace);
+            const blocks = content.blocks.blocks;
+            const json = JSON.stringify(blocks);
+            const blob = new Blob([json], {type: 'application/json'});
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a') as HTMLAnchorElement;
+            link.style.display = 'none';
+            link.href = url;
+            link.download = 'My project.tnyblk';
+            document.body.appendChild(link);
+            link.click();
         },
-        label: 'New'
+        label: t('blocks.save')
+    },
+    {
+        key: 'connect',
+        icon: 'i-heroicons-link',
+        callback: () => {
+            connectPopup.value = true;
+            websocketStatus.value = TnyRemote.getInstance().status;
+        },
+        label: t('blocks.connect')
     }
 ];
 
