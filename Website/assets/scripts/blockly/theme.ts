@@ -6,8 +6,8 @@ export function createTheme() {
         base: Themes.Classic,
         blockStyles: {
             event_blocks: { colourPrimary: '#eab308', },
-            controls_blocks: { colourPrimary: '#f59e0b', },
             logic_blocks: { colourPrimary: '#f59e0b', },
+            loop_blocks: { colourPrimary: '#f59e0b', },
             math_blocks: { colourPrimary: '#22c55e', },
             variable_blocks: { colourPrimary: '#f97316', },
             list_blocks: { colourPrimary: '#ef4444', },
@@ -19,7 +19,6 @@ export function createTheme() {
         categoryStyles: {
             event_category: { colour: '#eab308' },
             controls_category: { colour: '#f59e0b' },
-            logic_category: { colour: '#f59e0b' },
             math_category: { colour: '#22c55e' },
             variable_category: { colour: '#f97316' },
             list_category: { colour: '#ef4444' },

@@ -16,6 +16,7 @@ export default {
     MOTORS_GET_ROTATION: "Get rotation of motor %1",
     MOTORS_SET_ROTATION: "Set rotation of motor %1 to %2 degrees",
     MOTORS_ROTATE_BY: "Rotate motor %1 by %2 degrees",
+    CONTROLS_WAIT_SECONDS: "Wait %1 seconds",
     TNY_EAR_LEFT: "Left ear",
     TNY_EAR_RIGHT: "Right ear",
     TNY_SHOULDER_FRONT_LEFT: "Front left shoulder",

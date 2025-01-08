@@ -23,19 +23,7 @@
             },
             {
                 "kind": "block",
-                "type": "logic_compare"
-            },
-            {
-                "kind": "block",
-                "type": "logic_operation"
-            },
-            {
-                "kind": "block",
-                "type": "logic_negate"
-            },
-            {
-                "kind": "block",
-                "type": "logic_boolean"
+                "type": "controls_ifelse"
             },
             {
                 "kind": "block",
@@ -52,6 +40,34 @@
             {
                 "kind": "block",
                 "type": "controls_flow_statements"
+            },
+            {
+                "kind": "block",
+                "type": "function_controls_waitSeconds"
+            },
+            {
+                "kind": "block",
+                "type": "logic_compare"
+            },
+            {
+                "kind": "block",
+                "type": "logic_operation"
+            },
+            {
+                "kind": "block",
+                "type": "logic_negate"
+            },
+            {
+                "kind": "block",
+                "type": "logic_boolean"
+            },
+            {
+                "kind": "block",
+                "type": "logic_null"
+            },
+            {
+                "kind": "block",
+                "type": "logic_ternary"
             }
         ],
         "id": "CONTROLS",

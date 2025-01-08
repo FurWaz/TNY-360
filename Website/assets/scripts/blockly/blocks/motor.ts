@@ -33,7 +33,7 @@ function getCustomBlocks() {
                 var id = javascriptGenerator.valueToCode(block, 'id', Order.NONE);
                 var angle = javascriptGenerator.valueToCode(block, 'angle', Order.NONE);
                 // return `TnyRemote.getInstance().setMotorRotation(${id}, ${rotation});\n`;
-                return `await window.TnyRemote.setMotorRotation(${id}, ${angle})\n`;
+                return `await window.TnyRemote.setMotorRotation(${id}, ${angle});\n`;
             }
         },
         {
@@ -63,7 +63,7 @@ function getCustomBlocks() {
                 var id = javascriptGenerator.valueToCode(block, 'id', Order.NONE);
                 var angle = javascriptGenerator.valueToCode(block, 'angle', Order.NONE);
                 // return `TnyRemote.getInstance().setMotorRotation(${id}, ${rotation});\n`;
-                return `await window.TnyRemote.rotateMotorBy(${id}, ${angle})\n`;
+                return `await window.TnyRemote.rotateMotorBy(${id}, ${angle});\n`;
             }
         },
         // GET MOTOR ROTATION
@@ -87,7 +87,7 @@ function getCustomBlocks() {
             js: function (block: Blockly.Block, generator: JavascriptGenerator) {
                 var id = javascriptGenerator.valueToCode(block, 'id', Order.NONE);
                 // return `TnyRemote.getInstance().getMotorRotation(${id});\n`;
-                return [`await window.TnyRemote.getMotorRotation(${id})`, Order.NONE]
+                return [`await window.TnyRemote.getMotorRotation(${id});\n`, Order.NONE]
             }
         }
     ];

@@ -1,9 +1,12 @@
 <template>
     <div class="relative flex grow">
         <div id="blocklyDiv" class="h-full w-full"></div>
-        <div class="absolute bottom-0 right-0 p-4">
-            <UButton v-show="!running" @click="runCode" icon="i-heroicons-play" />
-            <UButton v-show="running" @click="running = false" icon="i-heroicons-pause" />
+        <div class="absolute bottom-0 right-0 p-6 space-x-4">
+            <UButton v-show="currentInstruction !== null || running" @click="onStopPressed" size="lg" class="shadow-lg" color="red" icon="i-heroicons-stop" />
+            <UButton @click="onStepPressed" size="lg" class="shadow-lg" color="blue" icon="i-heroicons-chevron-right" />
+
+            <UButton v-show="running" @click="onPausePressed" size="lg" class="shadow-lg" icon="i-heroicons-pause" />
+            <UButton v-show="!running" @click="onPlayPressed" size="lg" class="shadow-lg" icon="i-heroicons-play" />
         </div>
     </div>
 </template>
@@ -71,11 +74,12 @@ function spawnDefaultWorkspace(workspace: Blockly.Workspace) {
             this.setHelpUrl("");
             this.setMovable(true);
             this.setStyle("event_blocks");
+            this.suppressPrefixSuffix = true;
         }
     };
     javascriptGenerator.forBlock['event_setup'] = function(block: Blockly.Block) {
         const insts = javascriptGenerator.statementToCode(block, 'insts');
-        return `window.blockly_setup = async () => {\n${insts}\n}\n`;
+        return `window.blockly_setup = async () => {\n${insts}}\n`;
     };
 
     // loop event
@@ -87,11 +91,12 @@ function spawnDefaultWorkspace(workspace: Blockly.Workspace) {
             this.setHelpUrl("");
             this.setMovable(true);
             this.setStyle("event_blocks");
+            this.suppressPrefixSuffix = true;
         }
     };
     javascriptGenerator.forBlock['event_loop'] = function(block: Blockly.Block) {
         const insts = javascriptGenerator.statementToCode(block, 'insts');
-        return `window.blockly_loop = async () => {\n${insts}\n}\n`;
+        return `window.blockly_loop = async () => {\n${insts}}\n`;
     };
 
     loadBlocklyBlocks(workspace, [{
@@ -190,18 +195,12 @@ async function initBlockly() {
         e.style.display = "none";
     });
 
-    function highlightBlock(id: string) {
-        workspace.highlightBlock(id);
-    }
-    function unhighlightBlock(id: string) {
-        workspace.highlightBlock(null);
-    }
-
     // define run button
     compileCode = () => {
-        javascriptGenerator.STATEMENT_PREFIX = 'highlightBlock(%1);\n';
-        javascriptGenerator.STATEMENT_SUFFIX = 'unhighlightBlock(%1);\n';
-        javascriptGenerator.addReservedWords('highlightBlock');
+        javascriptGenerator.STATEMENT_PREFIX = 'if (onBlockStart(%1)) {\n';
+        javascriptGenerator.STATEMENT_SUFFIX = '}\nif (!onBlockEnd(%1)) return;\n';
+        javascriptGenerator.addReservedWords('onBlockStart');
+        javascriptGenerator.addReservedWords('onBlockEnd');
         const code = javascriptGenerator.workspaceToCode(workspace);
         
         try { eval(code); }
@@ -209,9 +208,95 @@ async function initBlockly() {
     }
 }
 
+
+const currentInstruction = ref<string|null>(null);
+const shouldOnlyStep = ref(false);
 const running = ref(false);
+
+// Called before block execution, returns true if we should execute the block (false to skip it)
+function onBlockStart(id: string) {
+    if (!running.value) return false; // Don't execute block if not running
+
+    const workspace = Blockly.getMainWorkspace() as Blockly.WorkspaceSvg;
+    workspace.highlightBlock(id);
+
+    if (currentInstruction.value !== null) {
+        // Execute next block if targeted (it's a resume call, we try to reach the current instruction from code start)
+        if (currentInstruction.value === id) {
+            // marking execution for next block
+            currentInstruction.value = null;
+        }
+        return false;
+    }
+    // current instruction is null, it's a normal execution. Mark this block as current instruction, and proceed
+    currentInstruction.value = id;
+    return true;
+}
+
+// Called when block ended execution, returns true if we should continue (false to stop execution)
+function onBlockEnd(id: string) {
+    const workspace = Blockly.getMainWorkspace() as Blockly.WorkspaceSvg;
+    workspace.highlightBlock(null);
+    
+    if (!running.value) return false; // Stop execution if not running
+
+    if (currentInstruction.value !== null && currentInstruction.value !== id) {
+        // Resume has been called, just continue to try to reach the current instruction
+        return true;
+    }
+
+    if (shouldOnlyStep.value) {
+        if (currentInstruction.value === null) {
+            // Skipping to let next block execute
+            return true;
+        }
+        
+        // We only wanted to step, stop execution
+        shouldOnlyStep.value = false;
+        running.value = false;
+        return false;
+    }
+
+    // We finished this block execution, reset current instruction and continue as normal
+    currentInstruction.value = null;
+    return true;
+}
+
+// Play pressed, start from the beginning
+// or continue from the current instruction if it exists
+async function onPlayPressed() {
+    shouldOnlyStep.value = false;
+    if (currentInstruction.value === null) {
+        // first click on it, compile and start from the beginning
+        compileCode();
+    }
+    runCode();
+}
+
+// Pause pressed, keep current instruction in memory
+// and stop the execution
+async function onPausePressed() {
+    running.value = false;
+}
+
+// Stop pressed, reset the current instruction in memory
+// and stop the execution
+async function onStopPressed() {
+    currentInstruction.value = null;
+    running.value = false;
+}
+
+async function onStepPressed() {
+    shouldOnlyStep.value = true;
+    if (currentInstruction.value === null) {
+        // first click on it, compile and start from the beginning
+        compileCode();
+    }
+    runCode();
+}
+
 async function runCode() {
-    compileCode();
+    running.value = true;
     await (window as any).blockly_setup?.();
 
     function loop() {
@@ -221,7 +306,6 @@ async function runCode() {
             });
         }
     }
-    running.value = true;
     loop();
 }
 

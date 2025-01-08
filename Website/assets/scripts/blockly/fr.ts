@@ -16,6 +16,7 @@ export default {
     MOTORS_GET_ROTATION: "Obtenir la rotation du moteur %1",
     MOTORS_SET_ROTATION: "Définir la rotation du moteur %1 à %2 degrés",
     MOTORS_ROTATE_BY: "Faire tourner le moteur %1 de %2 degrés",
+    CONTROLS_WAIT_SECONDS: "Attendre %1 secondes",
     TNY_EAR_LEFT: "Oreille gauche",
     TNY_EAR_RIGHT: "Oreille droite",
     TNY_SHOULDER_FRONT_LEFT: "Épaule avant gauche",
