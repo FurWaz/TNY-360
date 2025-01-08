@@ -232,6 +232,7 @@ function onBlockStart(id: string) {
     currentInstruction.value = id;
     return true;
 }
+(Blockly as any).onBlockStart = onBlockStart; // doing this to avoid function removal by minifier
 
 // Called when block ended execution, returns true if we should continue (false to stop execution)
 function onBlockEnd(id: string) {
@@ -261,6 +262,7 @@ function onBlockEnd(id: string) {
     currentInstruction.value = null;
     return true;
 }
+(Blockly as any).onBlockEnd = onBlockEnd; // doing this to avoid function removal by minifier
 
 // Play pressed, start from the beginning
 // or continue from the current instruction if it exists
