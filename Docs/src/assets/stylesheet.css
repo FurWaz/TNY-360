@@ -1,0 +1,27 @@
+.md-button {
+    border-radius: 6px !important;
+}
+
+.md-button-left {
+    padding: 6px 16px 6px 12px !important;
+}
+
+.md-button-right {
+    padding: 6px 12px 6px 16px !important;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 32px;
+}
+
+.buttons-left {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.buttons-right {
+    display: flex;
+    justify-content: flex-end;
+}

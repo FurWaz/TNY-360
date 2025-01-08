@@ -29,13 +29,19 @@ theme:
     - content.code.annotate
 
 extra_css:
-  - stylesheets/extra.css
+  - assets/stylesheet.css
 
 nav:
   - Accueil: index.md
-  - Models:
-    - 'Model 1': models/model1/
-    - 'Model 2': models/model2/
+  - Programming:
+    - Blocks:
+      - 'Introduction': programming/blocks/intro.md
+      - 'Connecting to a TNY-360': programming/blocks/connect.md
+      - 'Rotating motors': programming/blocks/motors.md
+    - Python:
+      - 'Introduction': programming/python/intro.md
+      - 'Connecting to a TNY-360': programming/python/connect.md
+      - 'Rotating motors': programming/python/motors.md
 
 plugins: 
   - search
