@@ -1,10 +1,11 @@
 export default defineI18nLocale(async (locale) => {
     return {
         error: {
-            title: 'Error {code} !',
+            title: 'Yoops! We got an error!',
             404: 'Page not found',
             500: 'Internal server error',
-            unknown: 'Unknown error'
+            unknown: 'Unknown error',
+            back: 'Back to home page'
         },
         language: {
             fr: 'French',
