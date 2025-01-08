@@ -21,7 +21,6 @@ export default defineNuxtConfig({
             }
         ],
         lazy: false,
-        langDir: 'lang/',
         defaultLocale: 'en',
         strategy: 'no_prefix',
     },
