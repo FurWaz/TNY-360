@@ -20,5 +20,10 @@ export default defineI18nLocale(async (locale) => {
         about: (await import('./en-US/about')).default,
         order: (await import('./en-US/order')).default,
         verb: (await import('./en-US/verbs')).default,
+        mobile: (await import('./en-US/mobile')).default,
+        blocks: (await import('./en-US/blocks')).default,
+        python: (await import('./en-US/python')).default,
+        ros2: (await import('./en-US/ros2')).default,
+        esp32: (await import('./en-US/esp32')).default,
     };
 });

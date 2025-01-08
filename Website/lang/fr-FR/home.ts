@@ -4,6 +4,7 @@ export default {
     description: 'Un petit robot chien futuristique, rempli de capteurs et fonctionnant avec un esp32 !',
     title: 'TNY - 360',
     titlePhone: 'TNY 360',
+    integrations: 'Intégrations',
     project: {
         title: 'Un projet entièrement open-source',
         print: {
@@ -103,7 +104,7 @@ export default {
         },
         order: {
             title: 'Tu veux commencer tout de suite ?',
-            description: 'Commande ton TNY-360 maintenant et reçois-le chez toi, entièrement assemblé ou à construire toi-même !',
+            description: 'Commande ton TNY-360 maintenant et reçois le chez toi, entièrement assemblé ou à construire toi-même !',
             button: 'Commander maintenant'
         }
     }

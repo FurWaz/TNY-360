@@ -10,11 +10,11 @@ const route = useRoute();
 const { t } = useI18n();
 
 useSeoMeta({
-    title: `${t('about.name')} | ${t('about.subtitle')}`,
-    description: t('about.description'),
+    title: `${t('mobile.name')} | ${t('mobile.subtitle')}`,
+    description: t('mobile.description'),
     ogImage: 'https://tny360.projects.furwaz.com/icon.png',
-    ogUrl: 'https://tny360.projects.furwaz.com/about',
+    ogUrl: 'https://tny360.projects.furwaz.com/mobile',
     ogType: 'website',
-    keywords: 'about, page, website, robot, furwaz, information, tny, 360',
+    keywords: 'mobile, app, page, website, robot, furwaz, companion, tny, 360',
 });
 </script>

@@ -10,11 +10,11 @@ const route = useRoute();
 const { t } = useI18n();
 
 useSeoMeta({
-    title: `${t('about.name')} | ${t('about.subtitle')}`,
-    description: t('about.description'),
+    title: `${t('python.name')} | ${t('python.subtitle')}`,
+    description: t('python.description'),
     ogImage: 'https://tny360.projects.furwaz.com/icon.png',
-    ogUrl: 'https://tny360.projects.furwaz.com/about',
+    ogUrl: 'https://tny360.projects.furwaz.com/python',
     ogType: 'website',
-    keywords: 'about, page, website, robot, furwaz, information, tny, 360',
+    keywords: 'python, page, website, robot, furwaz, tny, 360, code, programming',
 });
 </script>

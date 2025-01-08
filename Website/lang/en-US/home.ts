@@ -4,6 +4,7 @@ export default {
     description: 'A small futuristic robot dog, full of sensors and running with an esp32!',
     title: 'TNY - 360',
     titlePhone: 'TNY 360',
+    integrations: 'Integrations',
     project: {
         title: 'A fully open-source project',
         print: {

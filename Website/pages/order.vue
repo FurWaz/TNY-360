@@ -15,6 +15,6 @@ useSeoMeta({
     ogImage: 'https://tny360.projects.furwaz.com/icon.png',
     ogUrl: 'https://tny360.projects.furwaz.com/order',
     ogType: 'website',
-    keywords: 'home, page, website, robot, furwaz',
+    keywords: 'order, page, website, robot, furwaz, tny, 360, buy, purchase',
 });
 </script>

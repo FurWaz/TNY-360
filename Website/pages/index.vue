@@ -137,7 +137,7 @@ useSeoMeta({
     ogImage: 'https://tny360.projects.furwaz.com/icon.png',
     ogUrl: 'https://tny360.projects.furwaz.com',
     ogType: 'website',
-    keywords: 'home, page, website, robot, furwaz',
+    keywords: 'home, page, website, robot, furwaz, tny, 360, sensors, actuators, learn, build',
 });
 
 const sensors = [
@@ -156,11 +156,11 @@ const actuators = [
 ];
 
 const platforms = [
-    {type: 'mobile', link: '/docs'},
+    {type: 'mobile', link: '/mobile'},
     {type: 'blocks', link: '/blocks'},
-    {type: 'python', link: '/docs'},
-    {type: 'ros2', link: '/docs'},
-    {type: 'esp32', link: '/docs'}
+    {type: 'python', link: '/python'},
+    {type: 'ros2', link: '/ros2'},
+    {type: 'esp32', link: '/esp32'}
 ];
 
 </script>

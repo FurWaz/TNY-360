@@ -10,11 +10,11 @@ const route = useRoute();
 const { t } = useI18n();
 
 useSeoMeta({
-    title: `${t('about.name')} | ${t('about.subtitle')}`,
-    description: t('about.description'),
+    title: `${t('esp32.name')} | ${t('esp32.subtitle')}`,
+    description: t('esp32.description'),
     ogImage: 'https://tny360.projects.furwaz.com/icon.png',
-    ogUrl: 'https://tny360.projects.furwaz.com/about',
+    ogUrl: 'https://tny360.projects.furwaz.com/esp32',
     ogType: 'website',
-    keywords: 'about, page, website, robot, furwaz, information, tny, 360',
+    keywords: 'esp, arduino, esp32, page, website, robot, furwaz, tny, 360, iot, internet, things, electronics',
 });
 </script>
