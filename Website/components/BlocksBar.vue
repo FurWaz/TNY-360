@@ -26,14 +26,14 @@
                 <p> {{ $t('blocks.connectionPopup.message') }} </p>
             </div>
 
-            <div class="flex space-x-2 mt-4 justify-center items-center">
-                <input id="ip_1" type="text" class="w-[4em] px-2 py-1 bg-slate-800 rounded-md text-lg text-center outline-primary focus:outline" @input="onIpChange" />
+            <div class="flex space-x-1 md:space-x-2 mt-4 justify-center items-center">
+                <input id="ip_1" type="text" class="w-[3.5em] md:w-[4em] px-2 py-1 bg-slate-800 rounded-md text-lg text-center outline-primary focus:outline" @input="onIpChange" />
                 <p class="font-semibold text-xl">.</p>
-                <input id="ip_2" type="text" class="w-[4em] px-2 py-1 bg-slate-800 rounded-md text-lg text-center outline-primary focus:outline" @input="onIpChange" />
+                <input id="ip_2" type="text" class="w-[3.5em] md:w-[4em] px-2 py-1 bg-slate-800 rounded-md text-lg text-center outline-primary focus:outline" @input="onIpChange" />
                 <p class="font-semibold text-xl">.</p>
-                <input id="ip_3" type="text" class="w-[4em] px-2 py-1 bg-slate-800 rounded-md text-lg text-center outline-primary focus:outline" @input="onIpChange" />
+                <input id="ip_3" type="text" class="w-[3.5em] md:w-[4em] px-2 py-1 bg-slate-800 rounded-md text-lg text-center outline-primary focus:outline" @input="onIpChange" />
                 <p class="font-semibold text-xl">.</p>
-                <input id="ip_4" type="text" class="w-[4em] px-2 py-1 bg-slate-800 rounded-md text-lg text-center outline-primary focus:outline" @input="onIpChange" @keydown="checkForEnter" />
+                <input id="ip_4" type="text" class="w-[3.5em] md:w-[4em] px-2 py-1 bg-slate-800 rounded-md text-lg text-center outline-primary focus:outline" @input="onIpChange" @keydown="checkForEnter" />
             </div>
 
             <div class="flex flex-col w-full h-fit">

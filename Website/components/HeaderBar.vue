@@ -14,7 +14,7 @@
                             {{ $t(btn.key) }}
                         </UButton>
                         <div v-show="btn.show.value" class="flex justify-center absolute w-full h-0">
-                            <div class="flex flex-col p-2 absolute top-1 min-w-full w-fit h-fit bg-slate-50 dark:bg-slate-700 rounded-b-lg border-b-4 border-slate-400 dark:border-slate-900">
+                            <div class="flex flex-col p-2 absolute top-1 min-w-full w-fit h-fit bg-slate-50 dark:bg-slate-700 rounded-b-lg border-b-4 border-slate-400 dark:border-slate-900 shadow-lg">
                                 <UButton v-for="el in btn.elements" :to="el.link" variant="ghost" color="gray" size="xl">
                                     <span class="whitespace-nowrap">{{ $t(el.key) }}</span>
                                 </UButton>

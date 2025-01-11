@@ -42,3 +42,7 @@ p {
 body {
     @apply bg-slate-50 dark:bg-slate-800 text-slate-700 dark:text-slate-50
 }
+
+.blocklyToolboxDiv {
+    z-index: 20 !important;
+}
