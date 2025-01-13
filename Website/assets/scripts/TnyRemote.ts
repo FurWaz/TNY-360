@@ -43,7 +43,7 @@ class TnyRemote extends EventTarget {
     public async connect(ip: string) {
         return new Promise((resolve, reject) => {
             console.log(`Connecting to ${ip} ...`);
-            this.websocket = new WebSocket(`ws://${ip}:5621`);
+            this.websocket = new WebSocket(`wss://${ip}:5621`);
             this.websocketStatus = TnyRemote.STATUS_CONNECTING;
 
             this.websocket.addEventListener('open', () => {
